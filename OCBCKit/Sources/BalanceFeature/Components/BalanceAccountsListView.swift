@@ -1,10 +1,12 @@
 import SwiftUI
 
 struct BalanceAccountsListView: View {
+    let accounts: [BalanceAccount]
+
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 10) {
-                ForEach(BalanceAccount.sample) { account in
+                ForEach(accounts) { account in
                     BalanceAccountRow(account: account)
                 }
             }

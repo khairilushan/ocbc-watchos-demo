@@ -2,11 +2,12 @@ import AppCore
 import SwiftUI
 
 struct HomeMenuListView: View {
+    let items: [HomeMenuItem]
     let onSelect: (Destination) -> Void
 
     var body: some View {
         VStack(spacing: 10) {
-            ForEach(HomeMenuItem.items) { item in
+            ForEach(items) { item in
                 Button {
                     onSelect(item.destination)
                 } label: {

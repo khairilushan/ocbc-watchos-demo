@@ -37,7 +37,10 @@ let package = Package(
         ),
         .target(
             name: "HomeFeature",
-            dependencies: ["AppCore"]
+            dependencies: [
+                "AppCore",
+                "DesignSystem"
+            ]
         ),
         .target(
             name: "BalanceFeature",
@@ -48,15 +51,24 @@ let package = Package(
         ),
         .target(
             name: "QrisFeature",
-            dependencies: ["DesignSystem"]
+            dependencies: [
+                "AppCore",
+                "DesignSystem"
+            ]
         ),
         .target(
             name: "FundTransferFeature",
-            dependencies: ["AppCore"]
+            dependencies: [
+                "AppCore",
+                "DesignSystem"
+            ]
         ),
         .target(
             name: "PaymentFeature",
-            dependencies: ["AppCore"]
+            dependencies: [
+                "AppCore",
+                "DesignSystem"
+            ]
         ),
         .testTarget(
             name: "OCBCKitTests",

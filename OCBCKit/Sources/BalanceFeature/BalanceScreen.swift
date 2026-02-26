@@ -2,30 +2,26 @@ import DesignSystem
 import SwiftUI
 
 public struct BalanceScreen: View {
-    private let simulateLoading: Bool
-    @State private var isLoading: Bool
+    @State private var store = BalanceScreenStore()
 
-    public init(simulateLoading: Bool = true) {
-        self.simulateLoading = simulateLoading
-        _isLoading = State(initialValue: simulateLoading)
-    }
+    public init() {}
 
     public var body: some View {
         Group {
-            if isLoading {
+            switch store.state {
+            case .loading:
                 OCBCLoadingView()
-                    .transition(.opacity)
-            } else {
-                BalanceAccountsListView()
-                    .transition(.opacity)
+            case let .success(accounts):
+                BalanceAccountsListView(accounts: accounts)
+            case let .failure(message):
+                OCBCFailureView(message: message) {
+                    Task { await store.retryButtonTapped() }
+                }
             }
         }
         .task {
-            guard simulateLoading, isLoading else { return }
-            try? await Task.sleep(for: .seconds(1.6))
-            withAnimation(.easeInOut(duration: 0.25)) {
-                isLoading = false
-            }
+            guard case .loading = store.state else { return }
+            await store.task()
         }
     }
 }
