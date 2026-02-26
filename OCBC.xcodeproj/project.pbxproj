@@ -1,0 +1,720 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A1B2C3D42F51AA0000BC0001 /* OCBCKit in Frameworks */ = {isa = PBXBuildFile; productRef = A1B2C3D42F51AA0000BC0002 /* OCBCKit */; };
+		F9B67A572F50DDCF002AD777 /* OCBC Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = F9B67A562F50DDCF002AD777 /* OCBC Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F9B67A582F50DDCF002AD777 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F9B67A4A2F50DDCE002AD777 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F9B67A552F50DDCF002AD777;
+			remoteInfo = "OCBC Watch App";
+		};
+		F9B67A662F50DDD2002AD777 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F9B67A4A2F50DDCE002AD777 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F9B67A552F50DDCF002AD777;
+			remoteInfo = "OCBC Watch App";
+		};
+		F9B67A702F50DDD2002AD777 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F9B67A4A2F50DDCE002AD777 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F9B67A552F50DDCF002AD777;
+			remoteInfo = "OCBC Watch App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F9B67A7C2F50DDD2002AD777 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				F9B67A572F50DDCF002AD777 /* OCBC Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		F9B67A502F50DDCF002AD777 /* OCBC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OCBC.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9B67A562F50DDCF002AD777 /* OCBC Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OCBC Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9B67A652F50DDD2002AD777 /* OCBC Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "OCBC Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9B67A6F2F50DDD2002AD777 /* OCBC Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "OCBC Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9B67A862F50DE16002AD777 /* OCBCKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = OCBCKit; sourceTree = "<group>"; };
+		F9B67A9F2F50E608002AD777 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		F9B67A5A2F50DDCF002AD777 /* OCBC Watch App */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "OCBC Watch App";
+			sourceTree = "<group>";
+		};
+		F9B67A682F50DDD2002AD777 /* OCBC Watch AppTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "OCBC Watch AppTests";
+			sourceTree = "<group>";
+		};
+		F9B67A722F50DDD2002AD777 /* OCBC Watch AppUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "OCBC Watch AppUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F9B67A532F50DDCF002AD777 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1B2C3D42F51AA0000BC0001 /* OCBCKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F9B67A622F50DDD2002AD777 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F9B67A6C2F50DDD2002AD777 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F9B67A492F50DDCE002AD777 = {
+			isa = PBXGroup;
+			children = (
+				F9B67A862F50DE16002AD777 /* OCBCKit */,
+				F9B67A5A2F50DDCF002AD777 /* OCBC Watch App */,
+				F9B67A682F50DDD2002AD777 /* OCBC Watch AppTests */,
+				F9B67A722F50DDD2002AD777 /* OCBC Watch AppUITests */,
+				F9B67A512F50DDCF002AD777 /* Products */,
+				F9B67A9F2F50E608002AD777 /* README.md */,
+			);
+			sourceTree = "<group>";
+		};
+		F9B67A512F50DDCF002AD777 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F9B67A502F50DDCF002AD777 /* OCBC.app */,
+				F9B67A562F50DDCF002AD777 /* OCBC Watch App.app */,
+				F9B67A652F50DDD2002AD777 /* OCBC Watch AppTests.xctest */,
+				F9B67A6F2F50DDD2002AD777 /* OCBC Watch AppUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F9B67A4F2F50DDCF002AD777 /* OCBC */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F9B67A7D2F50DDD2002AD777 /* Build configuration list for PBXNativeTarget "OCBC" */;
+			buildPhases = (
+				F9B67A4E2F50DDCF002AD777 /* Resources */,
+				F9B67A7C2F50DDD2002AD777 /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F9B67A592F50DDCF002AD777 /* PBXTargetDependency */,
+			);
+			name = OCBC;
+			packageProductDependencies = (
+			);
+			productName = OCBC;
+			productReference = F9B67A502F50DDCF002AD777 /* OCBC.app */;
+			productType = "com.apple.product-type.application.watchapp2-container";
+		};
+		F9B67A552F50DDCF002AD777 /* OCBC Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F9B67A792F50DDD2002AD777 /* Build configuration list for PBXNativeTarget "OCBC Watch App" */;
+			buildPhases = (
+				F9B67A522F50DDCF002AD777 /* Sources */,
+				F9B67A532F50DDCF002AD777 /* Frameworks */,
+				F9B67A542F50DDCF002AD777 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				F9B67A5A2F50DDCF002AD777 /* OCBC Watch App */,
+			);
+			name = "OCBC Watch App";
+			packageProductDependencies = (
+				A1B2C3D42F51AA0000BC0002 /* OCBCKit */,
+			);
+			productName = "OCBC Watch App";
+			productReference = F9B67A562F50DDCF002AD777 /* OCBC Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F9B67A642F50DDD2002AD777 /* OCBC Watch AppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F9B67A802F50DDD2002AD777 /* Build configuration list for PBXNativeTarget "OCBC Watch AppTests" */;
+			buildPhases = (
+				F9B67A612F50DDD2002AD777 /* Sources */,
+				F9B67A622F50DDD2002AD777 /* Frameworks */,
+				F9B67A632F50DDD2002AD777 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F9B67A672F50DDD2002AD777 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				F9B67A682F50DDD2002AD777 /* OCBC Watch AppTests */,
+			);
+			name = "OCBC Watch AppTests";
+			packageProductDependencies = (
+			);
+			productName = "OCBC Watch AppTests";
+			productReference = F9B67A652F50DDD2002AD777 /* OCBC Watch AppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F9B67A6E2F50DDD2002AD777 /* OCBC Watch AppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F9B67A832F50DDD2002AD777 /* Build configuration list for PBXNativeTarget "OCBC Watch AppUITests" */;
+			buildPhases = (
+				F9B67A6B2F50DDD2002AD777 /* Sources */,
+				F9B67A6C2F50DDD2002AD777 /* Frameworks */,
+				F9B67A6D2F50DDD2002AD777 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F9B67A712F50DDD2002AD777 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				F9B67A722F50DDD2002AD777 /* OCBC Watch AppUITests */,
+			);
+			name = "OCBC Watch AppUITests";
+			packageProductDependencies = (
+			);
+			productName = "OCBC Watch AppUITests";
+			productReference = F9B67A6F2F50DDD2002AD777 /* OCBC Watch AppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F9B67A4A2F50DDCE002AD777 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2630;
+				LastUpgradeCheck = 2630;
+				TargetAttributes = {
+					F9B67A4F2F50DDCF002AD777 = {
+						CreatedOnToolsVersion = 26.3;
+					};
+					F9B67A552F50DDCF002AD777 = {
+						CreatedOnToolsVersion = 26.3;
+					};
+					F9B67A642F50DDD2002AD777 = {
+						CreatedOnToolsVersion = 26.3;
+						TestTargetID = F9B67A552F50DDCF002AD777;
+					};
+					F9B67A6E2F50DDD2002AD777 = {
+						CreatedOnToolsVersion = 26.3;
+						TestTargetID = F9B67A552F50DDCF002AD777;
+					};
+				};
+			};
+			buildConfigurationList = F9B67A4D2F50DDCE002AD777 /* Build configuration list for PBXProject "OCBC" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F9B67A492F50DDCE002AD777;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				A1B2C3D42F51AA0000BC0003 /* XCLocalSwiftPackageReference "OCBCKit" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = F9B67A512F50DDCF002AD777 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F9B67A4F2F50DDCF002AD777 /* OCBC */,
+				F9B67A552F50DDCF002AD777 /* OCBC Watch App */,
+				F9B67A642F50DDD2002AD777 /* OCBC Watch AppTests */,
+				F9B67A6E2F50DDD2002AD777 /* OCBC Watch AppUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F9B67A4E2F50DDCF002AD777 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F9B67A542F50DDCF002AD777 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F9B67A632F50DDD2002AD777 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F9B67A6D2F50DDD2002AD777 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F9B67A522F50DDCF002AD777 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F9B67A612F50DDD2002AD777 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F9B67A6B2F50DDD2002AD777 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F9B67A592F50DDCF002AD777 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F9B67A552F50DDCF002AD777 /* OCBC Watch App */;
+			targetProxy = F9B67A582F50DDCF002AD777 /* PBXContainerItemProxy */;
+		};
+		F9B67A672F50DDD2002AD777 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F9B67A552F50DDCF002AD777 /* OCBC Watch App */;
+			targetProxy = F9B67A662F50DDD2002AD777 /* PBXContainerItemProxy */;
+		};
+		F9B67A712F50DDD2002AD777 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F9B67A552F50DDCF002AD777 /* OCBC Watch App */;
+			targetProxy = F9B67A702F50DDD2002AD777 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		F9B67A772F50DDD2002AD777 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = S9FWRP6T5H;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F9B67A782F50DDD2002AD777 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = S9FWRP6T5H;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		F9B67A7A2F50DDD2002AD777 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S9FWRP6T5H;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = OCBC;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKWatchOnly = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.khairilushan.OCBC.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Debug;
+		};
+		F9B67A7B2F50DDD2002AD777 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S9FWRP6T5H;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = OCBC;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKWatchOnly = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.khairilushan.OCBC.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Release;
+		};
+		F9B67A7E2F50DDD2002AD777 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S9FWRP6T5H;
+				INFOPLIST_KEY_CFBundleDisplayName = OCBC;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.khairilushan.OCBC;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		F9B67A7F2F50DDD2002AD777 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S9FWRP6T5H;
+				INFOPLIST_KEY_CFBundleDisplayName = OCBC;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.khairilushan.OCBC;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F9B67A812F50DDD2002AD777 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S9FWRP6T5H;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.khairilushan.OCBC-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OCBC Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/OCBC Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Debug;
+		};
+		F9B67A822F50DDD2002AD777 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S9FWRP6T5H;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.khairilushan.OCBC-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OCBC Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/OCBC Watch App";
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Release;
+		};
+		F9B67A842F50DDD2002AD777 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S9FWRP6T5H;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.khairilushan.OCBC-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "OCBC Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Debug;
+		};
+		F9B67A852F50DDD2002AD777 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S9FWRP6T5H;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.khairilushan.OCBC-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "OCBC Watch App";
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F9B67A4D2F50DDCE002AD777 /* Build configuration list for PBXProject "OCBC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F9B67A772F50DDD2002AD777 /* Debug */,
+				F9B67A782F50DDD2002AD777 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F9B67A792F50DDD2002AD777 /* Build configuration list for PBXNativeTarget "OCBC Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F9B67A7A2F50DDD2002AD777 /* Debug */,
+				F9B67A7B2F50DDD2002AD777 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F9B67A7D2F50DDD2002AD777 /* Build configuration list for PBXNativeTarget "OCBC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F9B67A7E2F50DDD2002AD777 /* Debug */,
+				F9B67A7F2F50DDD2002AD777 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F9B67A802F50DDD2002AD777 /* Build configuration list for PBXNativeTarget "OCBC Watch AppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F9B67A812F50DDD2002AD777 /* Debug */,
+				F9B67A822F50DDD2002AD777 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F9B67A832F50DDD2002AD777 /* Build configuration list for PBXNativeTarget "OCBC Watch AppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F9B67A842F50DDD2002AD777 /* Debug */,
+				F9B67A852F50DDD2002AD777 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		A1B2C3D42F51AA0000BC0003 /* XCLocalSwiftPackageReference "OCBCKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = OCBCKit;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A1B2C3D42F51AA0000BC0002 /* OCBCKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1B2C3D42F51AA0000BC0003 /* XCLocalSwiftPackageReference "OCBCKit" */;
+			productName = OCBCKit;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = F9B67A4A2F50DDCE002AD777 /* Project object */;
+}
