@@ -55,6 +55,14 @@ let package = Package(
             ]
         ),
         .target(
+            name: "QrisCore",
+            dependencies: [
+                "AppCore",
+                "Networking",
+                .product(name: "Dependencies", package: "swift-dependencies")
+            ]
+        ),
+        .target(
             name: "HomeFeature",
             dependencies: [
                 "AppCore",
@@ -74,7 +82,9 @@ let package = Package(
             name: "QrisFeature",
             dependencies: [
                 "AppCore",
-                "DesignSystem"
+                "QrisCore",
+                "DesignSystem",
+                .product(name: "Dependencies", package: "swift-dependencies")
             ]
         ),
         .target(
@@ -108,6 +118,19 @@ let package = Package(
             dependencies: [
                 "BalanceFeature",
                 "BalanceCore",
+                .product(name: "Dependencies", package: "swift-dependencies"),
+                .product(name: "CasePaths", package: "swift-case-paths")
+            ]
+        ),
+        .testTarget(
+            name: "QrisCoreTests",
+            dependencies: ["QrisCore", "Networking"]
+        ),
+        .testTarget(
+            name: "QrisFeatureTests",
+            dependencies: [
+                "QrisFeature",
+                "QrisCore",
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "CasePaths", package: "swift-case-paths")
             ]
