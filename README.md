@@ -21,6 +21,8 @@ The watch app entry point renders `OCBCRootView` directly.
 - SwiftUI
 - Swift Package Manager
 - Observation (`@Observable`) for routing and screen stores
+- Point-Free `Dependencies` for dependency injection
+- Point-Free `CasePaths` for ergonomic enum assertions
 - Liquid Glass API (minimum deployment target set to 26.0)
 
 ## Project Structure
@@ -99,6 +101,8 @@ OCBC/
 Internally, it composes multiple targets:
 - `AppCore`
 - `DesignSystem`
+- `Networking`
+- `BalanceCore`
 - `HomeFeature`
 - `BalanceFeature`
 - `QrisFeature`
@@ -143,6 +147,61 @@ Each feature is split into:
 - `Stores/` (feature state + mapping logic)
 
 Goal: keep each SwiftUI `body` focused and minimal.
+
+## Networking
+
+`Networking` is a reusable pipeline target for HTTP calls.  
+`BalanceCore` is the first feature-core target that uses it via `BalanceClient`.
+
+### Pipeline Components
+
+- `Endpoint<Response>`: declares `path`, `method`, optional query/body/headers, and typed response.
+- `RequestBuilder`: builds `URLRequest` from endpoint + `NetworkingConfig`.
+- `APIClient`: executes endpoint, applies headers, validates status code, decodes response.
+- `RequestHeaderProvider`: composable header layers (static headers, session, bearer auth, signature).
+- `HTTPClient`: transport abstraction (`URLSessionHTTPClient` for live, spy/mock for tests).
+
+### How To Add A New Endpoint
+
+1. Create endpoint type in a feature-core target (example: `BalanceCore/Endpoints`):
+   - Conform to `Endpoint`
+   - Set `path` and `method`
+   - Define `Response` model
+
+2. Create response models in that feature-core target (example: `BalanceCore/Models`):
+   - Map backend JSON shape with `CodingKeys`
+   - Keep transport models separate from UI models
+
+3. Add/extend feature client in feature-core target (example: `BalanceCore/Services/BalanceClient.swift`):
+   - Add a closure function on the client (example: `fetchTotalBalances`)
+   - Implement `.live(apiClient:)` to call `apiClient.execute(NewEndpoint())`
+   - Map endpoint response to feature-core domain model inside the live client
+
+4. Consume feature-core service in feature store:
+   - Inject client into `ScreenStore` via `@Dependency`
+   - Map feature-core domain model to screen UI model
+
+5. Test the pipeline:
+   - Use `SpyHTTPClient` + fixed nonce/timestamp/token/session/signer providers
+   - Assert request path/headers and decoded/mapped output
+   - Override feature client dependency in store tests
+
+### Existing Example
+
+- Endpoint: `/dashboard/inquiry-balance-total`
+- Target ownership:
+  - Endpoint + decoding + feature client: `BalanceCore` (`BalanceClient`)
+  - UI mapping/state: `BalanceFeature` (`BalanceScreenStore`)
+
+### Reusable Preview/Test Networking Setup
+
+`AppCore` provides reusable preview providers and client factory:
+
+- `PreviewNetworkingValues.config(...)`
+- `PreviewNetworkingValues.apiClient(...)`
+- `PreviewSessionProvider`
+- `PreviewAccessTokenProvider`
+- `PreviewRequestSigner`
 
 ## QRIS Assets
 

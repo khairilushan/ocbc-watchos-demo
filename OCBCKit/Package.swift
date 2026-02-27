@@ -15,6 +15,10 @@ let package = Package(
             targets: ["OCBCKit"]
         )
     ],
+    dependencies: [
+        .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0"),
+        .package(url: "https://github.com/pointfreeco/swift-case-paths", from: "1.0.0")
+    ],
     targets: [
         .target(
             name: "OCBCKit",
@@ -29,11 +33,26 @@ let package = Package(
             ]
         ),
         .target(
-            name: "AppCore"
+            name: "AppCore",
+            dependencies: [
+                "Networking",
+                .product(name: "CasePaths", package: "swift-case-paths")
+            ]
         ),
         .target(
             name: "DesignSystem",
             resources: [.process("Resources")]
+        ),
+        .target(
+            name: "Networking"
+        ),
+        .target(
+            name: "BalanceCore",
+            dependencies: [
+                "AppCore",
+                "Networking",
+                .product(name: "Dependencies", package: "swift-dependencies")
+            ]
         ),
         .target(
             name: "HomeFeature",
@@ -46,7 +65,9 @@ let package = Package(
             name: "BalanceFeature",
             dependencies: [
                 "AppCore",
-                "DesignSystem"
+                "BalanceCore",
+                "DesignSystem",
+                .product(name: "Dependencies", package: "swift-dependencies")
             ]
         ),
         .target(
@@ -73,6 +94,23 @@ let package = Package(
         .testTarget(
             name: "OCBCKitTests",
             dependencies: ["OCBCKit"]
+        ),
+        .testTarget(
+            name: "NetworkingTests",
+            dependencies: ["Networking"]
+        ),
+        .testTarget(
+            name: "BalanceCoreTests",
+            dependencies: ["BalanceCore", "Networking"]
+        ),
+        .testTarget(
+            name: "BalanceFeatureTests",
+            dependencies: [
+                "BalanceFeature",
+                "BalanceCore",
+                .product(name: "Dependencies", package: "swift-dependencies"),
+                .product(name: "CasePaths", package: "swift-case-paths")
+            ]
         )
     ]
 )

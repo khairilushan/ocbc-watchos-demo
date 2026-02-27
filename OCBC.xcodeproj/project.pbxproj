@@ -50,6 +50,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F93921742F5187F4005D8934 /* OCBC Watch App.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "OCBC Watch App.xctestplan"; sourceTree = "<group>"; };
 		F9B67A502F50DDCF002AD777 /* OCBC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OCBC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9B67A562F50DDCF002AD777 /* OCBC Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OCBC Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9B67A652F50DDD2002AD777 /* OCBC Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "OCBC Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,6 +106,7 @@
 		F9B67A492F50DDCE002AD777 = {
 			isa = PBXGroup;
 			children = (
+				F93921742F5187F4005D8934 /* OCBC Watch App.xctestplan */,
 				F9B67A862F50DE16002AD777 /* OCBCKit */,
 				F9B67A5A2F50DDCF002AD777 /* OCBC Watch App */,
 				F9B67A682F50DDD2002AD777 /* OCBC Watch AppTests */,

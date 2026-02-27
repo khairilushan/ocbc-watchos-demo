@@ -1,3 +1,6 @@
+import CasePaths
+
+@CasePathable
 public enum ScreenState<Value> {
     case loading
     case success(Value)

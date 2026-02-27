@@ -1,15 +1,22 @@
 import AppCore
+import BalanceCore
+import Dependencies
+import Foundation
 import Observation
 
 @MainActor
 @Observable
 final class BalanceScreenStore {
+    @ObservationIgnored
+    @Dependency(\.balanceClient)
+    private var balanceClient
+
     var state: ScreenState<[BalanceAccount]> = .loading
 
     func task() async {
         do {
-            try await Task.sleep(for: .seconds(1.2))
-            state = .success(mapToUiModel(BalanceAccountServiceModel.sample))
+            let accounts = try await balanceClient.fetchTotalBalances()
+            state = .success(mapToUiModel(accounts))
         } catch is CancellationError {
         } catch {
             state = .failure("Failed to load balances.")
@@ -21,31 +28,45 @@ final class BalanceScreenStore {
         await task()
     }
 
-    private func mapToUiModel(_ data: [BalanceAccountServiceModel]) -> [BalanceAccount] {
+    private func mapToUiModel(_ data: [BalanceCurrencyAccount]) -> [BalanceAccount] {
         data.map {
             BalanceAccount(
-                id: $0.id,
-                flag: $0.flag,
-                currency: $0.currency,
-                amount: $0.amount
+                id: $0.currencyCode.lowercased(),
+                flag: Self.flag(for: $0.currencyCode),
+                currency: $0.currencyCode,
+                amount: Self.formatted(balance: $0.balance)
             )
         }
     }
-}
 
-private struct BalanceAccountServiceModel {
-    let id: String
-    let flag: String
-    let currency: String
-    let amount: String
+    private static func formatted(balance: Double) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.usesGroupingSeparator = true
+        formatter.groupingSeparator = ","
+        formatter.decimalSeparator = "."
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 2
+        formatter.locale = Locale(identifier: "en_US_POSIX")
 
-    static let sample: [Self] = [
-        .init(id: "idr", flag: "🇮🇩", currency: "IDR", amount: "1,497,382,669.02"),
-        .init(id: "usd", flag: "🇺🇸", currency: "USD", amount: "1,957,483.55"),
-        .init(id: "sgd", flag: "🇸🇬", currency: "SGD", amount: "1,046,737.69"),
-        .init(id: "eur", flag: "🇪🇺", currency: "EUR", amount: "884,251.44"),
-        .init(id: "jpy", flag: "🇯🇵", currency: "JPY", amount: "22,140,983.00"),
-        .init(id: "gbp", flag: "🇬🇧", currency: "GBP", amount: "713,902.18"),
-        .init(id: "aud", flag: "🇦🇺", currency: "AUD", amount: "1,102,645.70")
-    ]
+        return formatter.string(from: NSNumber(value: balance)) ?? "\(balance)"
+    }
+
+    private static func flag(for currencyCode: String) -> String {
+        switch currencyCode {
+        case "IDR": return "🇮🇩"
+        case "USD": return "🇺🇸"
+        case "SGD": return "🇸🇬"
+        case "JPY": return "🇯🇵"
+        case "EUR": return "🇪🇺"
+        case "AUD": return "🇦🇺"
+        case "HKD": return "🇭🇰"
+        case "GBP": return "🇬🇧"
+        case "CAD": return "🇨🇦"
+        case "CHF": return "🇨🇭"
+        case "NZD": return "🇳🇿"
+        case "CNH": return "🇨🇳"
+        default: return "🏦"
+        }
+    }
 }

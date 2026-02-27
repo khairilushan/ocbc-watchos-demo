@@ -1,0 +1,50 @@
+{
+  "configurations" : [
+    {
+      "id" : "20066D5B-E6A1-4F54-AA8E-F65891B9885B",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:OCBC.xcodeproj",
+      "identifier" : "F9B67A552F50DDCF002AD777",
+      "name" : "OCBC Watch App"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:OCBCKit",
+        "identifier" : "BalanceFeatureTests",
+        "name" : "BalanceFeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:OCBCKit",
+        "identifier" : "OCBCKitTests",
+        "name" : "OCBCKitTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:OCBCKit",
+        "identifier" : "BalanceCoreTests",
+        "name" : "BalanceCoreTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:OCBCKit",
+        "identifier" : "NetworkingTests",
+        "name" : "NetworkingTests"
+      }
+    }
+  ],
+  "version" : 1
+}
