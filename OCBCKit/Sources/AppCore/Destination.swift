@@ -4,4 +4,5 @@ public enum Destination: Hashable, Sendable {
     case qris
     case fundTransfer
     case payment
+    case withdrawal
 }

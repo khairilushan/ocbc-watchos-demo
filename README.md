@@ -10,6 +10,8 @@ Implemented so far:
 - `QRIS` screen
 - `Fund Transfer` screen
 - `Payment & Purchase` screen
+- Reusable `PinFeature` with custom digit keypad (0-9 + delete)
+- `Withdrawal` flow (source of funds, amount selection sheet, PIN validation, result)
 - Root navigation and routing
 - Shared `ScreenStore` per feature with `loading/success/failure` state
 - `DesignSystem` target for shared UI and assets
@@ -84,9 +86,9 @@ OCBC/
                                +----------------------+
                                 |    |    |    |    |    |
                                 v    v    v    v    v    v
-                         +---------+ +------------+ +-----------+ +--------------+ +------------+ +-------------------+ +---------------+
-                         | AppCore | |DesignSystem| |HomeFeature| |BalanceFeature| |QrisFeature | |FundTransferFeature| |PaymentFeature|
-                         +---------+ +------------+ +-----------+ +--------------+ +------------+ +-------------------+ +---------------+
+                         +---------+ +------------+ +-----------+ +--------------+ +------------+ +-------------------+ +---------------+ +----------+ +-----------------+
+                         | AppCore | |DesignSystem| |HomeFeature| |BalanceFeature| |QrisFeature | |FundTransferFeature| |PaymentFeature| |PinFeature| |WithdrawalFeature|
+                         +---------+ +------------+ +-----------+ +--------------+ +------------+ +-------------------+ +---------------+ +----------+ +-----------------+
                              ^            ^               |               |                  |                     |
                              |            |               |               |                  |                     |
                              +------------+---------------+---------------+------------------+---------------------+
@@ -108,6 +110,9 @@ Internally, it composes multiple targets:
 - `QrisFeature`
 - `FundTransferFeature`
 - `PaymentFeature`
+- `PinFeature`
+- `WithdrawalCore`
+- `WithdrawalFeature`
 - `OCBCKit` (root composition target)
 
 Each feature target is isolated and does not import sibling feature targets.

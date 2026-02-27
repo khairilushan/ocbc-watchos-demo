@@ -29,7 +29,9 @@ let package = Package(
                 "BalanceFeature",
                 "QrisFeature",
                 "FundTransferFeature",
-                "PaymentFeature"
+                "PaymentFeature",
+                "PinFeature",
+                "WithdrawalFeature"
             ]
         ),
         .target(
@@ -101,6 +103,30 @@ let package = Package(
                 "DesignSystem"
             ]
         ),
+        .target(
+            name: "PinFeature",
+            dependencies: [
+                "DesignSystem"
+            ]
+        ),
+        .target(
+            name: "WithdrawalCore",
+            dependencies: [
+                "AppCore",
+                "Networking",
+                .product(name: "Dependencies", package: "swift-dependencies")
+            ]
+        ),
+        .target(
+            name: "WithdrawalFeature",
+            dependencies: [
+                "AppCore",
+                "WithdrawalCore",
+                "DesignSystem",
+                "PinFeature",
+                .product(name: "Dependencies", package: "swift-dependencies")
+            ]
+        ),
         .testTarget(
             name: "OCBCKitTests",
             dependencies: ["OCBCKit"]
@@ -131,6 +157,19 @@ let package = Package(
             dependencies: [
                 "QrisFeature",
                 "QrisCore",
+                .product(name: "Dependencies", package: "swift-dependencies"),
+                .product(name: "CasePaths", package: "swift-case-paths")
+            ]
+        ),
+        .testTarget(
+            name: "WithdrawalCoreTests",
+            dependencies: ["WithdrawalCore", "Networking"]
+        ),
+        .testTarget(
+            name: "WithdrawalFeatureTests",
+            dependencies: [
+                "WithdrawalFeature",
+                "WithdrawalCore",
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "CasePaths", package: "swift-case-paths")
             ]

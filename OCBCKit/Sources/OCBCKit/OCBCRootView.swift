@@ -5,6 +5,7 @@ import HomeFeature
 import PaymentFeature
 import QrisFeature
 import SwiftUI
+import WithdrawalFeature
 
 public struct OCBCRootView: View {
     @State private var router = Router()
@@ -26,6 +27,8 @@ public struct OCBCRootView: View {
                         FundTransferView()
                     case .payment:
                         PaymentView()
+                    case .withdrawal:
+                        WithdrawalScreen()
                     }
                 }
         }

@@ -43,6 +43,7 @@ private struct HomeMenuServiceModel {
     static let sample: [Self] = [
         .init(title: "Account Balance", symbol: "person.text.rectangle", destination: .balance, isMultiline: false),
         .init(title: "QRIS Pay", symbol: "qrcode.viewfinder", destination: .qris, isMultiline: false),
+        .init(title: "Withdrawal", symbol: "banknote", destination: .withdrawal, isMultiline: false),
         .init(title: "Fund Transfer", symbol: "arrow.left.arrow.right", destination: .fundTransfer, isMultiline: false),
         .init(title: "Payment &\nPurchase", symbol: "creditcard", destination: .payment, isMultiline: true)
     ]
