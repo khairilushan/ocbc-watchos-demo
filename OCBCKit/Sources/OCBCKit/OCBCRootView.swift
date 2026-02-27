@@ -22,7 +22,7 @@ public struct OCBCRootView: View {
                     case .balance:
                         BalanceScreen()
                     case .qris:
-                        QrisScreen()
+                        QRISRequestMoneyScreen()
                     case .fundTransfer:
                         FundTransferView()
                     case .payment:

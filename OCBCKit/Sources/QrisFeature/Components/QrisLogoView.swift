@@ -6,7 +6,7 @@ struct QrisLogoView: View {
         Image.iconQrisLogo
             .resizable()
             .scaledToFit()
-            .frame(width: 58, height: 18)
+            .frame(height: 14)
             .accessibilityHidden(true)
     }
 }
