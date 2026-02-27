@@ -1,15 +1,21 @@
 import AppCore
+import Dependencies
+import FundTransferCore
 import Observation
 
 @MainActor
 @Observable
 final class FundTransferScreenStore {
+    @ObservationIgnored
+    @Dependency(\.fundTransferClient)
+    private var fundTransferClient
+
     var state: ScreenState<FundTransferUiModel> = .loading
 
     func task() async {
         do {
-            try await Task.sleep(for: .seconds(1.0))
-            state = .success(mapToUiModel(FundTransferServiceModel.sample))
+            let account = try await fundTransferClient.fetchPrimaryAccount()
+            state = .success(mapToUiModel(account))
         } catch is CancellationError {
         } catch {
             state = .failure("Failed to load fund transfer.")
@@ -21,19 +27,15 @@ final class FundTransferScreenStore {
         await task()
     }
 
-    private func mapToUiModel(_ data: FundTransferServiceModel) -> FundTransferUiModel {
-        FundTransferUiModel(symbol: data.icon, title: data.title)
+    private func mapToUiModel(_ data: FundTransferPrimaryAccount) -> FundTransferUiModel {
+        FundTransferUiModel(
+            symbol: "arrow.left.arrow.right",
+            title: data.accountName.isEmpty ? "Fund Transfer" : data.accountName
+        )
     }
 }
 
 struct FundTransferUiModel {
     let symbol: String
     let title: String
-}
-
-private struct FundTransferServiceModel {
-    let icon: String
-    let title: String
-
-    static let sample = Self(icon: "arrow.left.arrow.right", title: "Fund Transfer")
 }

@@ -63,6 +63,14 @@ let package = Package(
             ]
         ),
         .target(
+            name: "FundTransferCore",
+            dependencies: [
+                "AppCore",
+                "Networking",
+                .product(name: "Dependencies", package: "swift-dependencies")
+            ]
+        ),
+        .target(
             name: "HomeFeature",
             dependencies: [
                 "AppCore",
@@ -91,7 +99,9 @@ let package = Package(
             name: "FundTransferFeature",
             dependencies: [
                 "AppCore",
-                "DesignSystem"
+                "FundTransferCore",
+                "DesignSystem",
+                .product(name: "Dependencies", package: "swift-dependencies")
             ]
         ),
         .target(
@@ -131,6 +141,18 @@ let package = Package(
             dependencies: [
                 "QrisFeature",
                 "QrisCore",
+                .product(name: "Dependencies", package: "swift-dependencies"),
+                .product(name: "CasePaths", package: "swift-case-paths")
+            ]
+        .testTarget(
+            name: "FundTransferCoreTests",
+            dependencies: ["FundTransferCore", "Networking"]
+        ),
+        .testTarget(
+            name: "FundTransferFeatureTests",
+            dependencies: [
+                "FundTransferFeature",
+                "FundTransferCore",
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "CasePaths", package: "swift-case-paths")
             ]
