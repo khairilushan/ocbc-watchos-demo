@@ -1,11 +1,12 @@
 import Foundation
 import Testing
+import TestSupport
 @testable import Networking
 @testable import WithdrawalCore
 
 @Test
 func acknowledge_postsBodyAndMapsResponse() async throws {
-    let recorder = RequestRecorder5()
+    let recorder = RequestRecorder()
     let data = sampleAckResponse.data(using: .utf8)!
     let response = HTTPURLResponse(
         url: URL(string: "https://example.com/card/withdrawal/ack")!,
@@ -13,20 +14,20 @@ func acknowledge_postsBodyAndMapsResponse() async throws {
         httpVersion: nil,
         headerFields: nil
     )!
-    let httpClient = SpyHTTPClient5(recorder: recorder, result: (data, response))
+    let httpClient = SpyHTTPClient(recorder: recorder, result: (data, response))
 
     let apiClient = APIClient(
-        config: .fixture5,
+        config: .testFixture,
         httpClient: httpClient,
-        nonceGenerator: FixedNonceGenerator5(value: "nonce-123"),
-        timestampProvider: FixedTimestampProvider5(value: "Fri Feb 27 14:54:27 GMT+01:00 2026"),
-        sessionProvider: FixedSessionProvider5(value: "SESSION123"),
-        accessTokenProvider: FixedAccessTokenProvider5(value: "TOKEN123"),
+        nonceGenerator: FixedNonceGenerator(value: "nonce-123"),
+        timestampProvider: FixedTimestampProvider(value: "Fri Feb 27 14:54:27 GMT+01:00 2026"),
+        sessionProvider: FixedSessionProvider(value: "SESSION123"),
+        accessTokenProvider: FixedAccessTokenProvider(value: "TOKEN123"),
         headerProviders: [
             StaticHeadersProvider(),
             SessionHeadersProvider(),
             AuthorizationHeadersProvider(),
-            SignatureHeadersProvider(signer: FixedSigner5(value: "SIGNED"))
+            SignatureHeadersProvider(signer: FixedSigner(value: "SIGNED"))
         ]
     )
 
@@ -53,7 +54,7 @@ func acknowledge_postsBodyAndMapsResponse() async throws {
 
 @Test
 func generateToken_usesAckEndpointAndMapsResponse() async throws {
-    let recorder = RequestRecorder5()
+    let recorder = RequestRecorder()
     let data = sampleAckResponse.data(using: .utf8)!
     let response = HTTPURLResponse(
         url: URL(string: "https://example.com/card/withdrawal/ack")!,
@@ -61,20 +62,20 @@ func generateToken_usesAckEndpointAndMapsResponse() async throws {
         httpVersion: nil,
         headerFields: nil
     )!
-    let httpClient = SpyHTTPClient5(recorder: recorder, result: (data, response))
+    let httpClient = SpyHTTPClient(recorder: recorder, result: (data, response))
 
     let apiClient = APIClient(
-        config: .fixture5,
+        config: .testFixture,
         httpClient: httpClient,
-        nonceGenerator: FixedNonceGenerator5(value: "nonce-123"),
-        timestampProvider: FixedTimestampProvider5(value: "Fri Feb 27 14:54:27 GMT+01:00 2026"),
-        sessionProvider: FixedSessionProvider5(value: "SESSION123"),
-        accessTokenProvider: FixedAccessTokenProvider5(value: "TOKEN123"),
+        nonceGenerator: FixedNonceGenerator(value: "nonce-123"),
+        timestampProvider: FixedTimestampProvider(value: "Fri Feb 27 14:54:27 GMT+01:00 2026"),
+        sessionProvider: FixedSessionProvider(value: "SESSION123"),
+        accessTokenProvider: FixedAccessTokenProvider(value: "TOKEN123"),
         headerProviders: [
             StaticHeadersProvider(),
             SessionHeadersProvider(),
             AuthorizationHeadersProvider(),
-            SignatureHeadersProvider(signer: FixedSigner5(value: "SIGNED"))
+            SignatureHeadersProvider(signer: FixedSigner(value: "SIGNED"))
         ]
     )
 
@@ -111,73 +112,6 @@ private func makeAckRequest() -> WithdrawalAckRequest {
     )
 }
 
-private actor RequestRecorder5 {
-    private var request: URLRequest?
-
-    func set(request: URLRequest) {
-        self.request = request
-    }
-
-    func latestRequest() -> URLRequest? {
-        request
-    }
-}
-
-private struct SpyHTTPClient5: HTTPClient {
-    let recorder: RequestRecorder5
-    let result: (Data, URLResponse)
-
-    func send(_ request: URLRequest) async throws -> (Data, URLResponse) {
-        await recorder.set(request: request)
-        return result
-    }
-}
-
-private struct FixedNonceGenerator5: NonceGenerator {
-    let value: String
-
-    func makeNonce() -> String { value }
-}
-
-private struct FixedTimestampProvider5: TimestampProvider {
-    let value: String
-
-    func now() -> Date { .distantPast }
-
-    func string(from date: Date) -> String { value }
-}
-
-private struct FixedSessionProvider5: SessionProvider {
-    let value: String?
-
-    func currentSessionID() async -> String? { value }
-}
-
-private struct FixedAccessTokenProvider5: AccessTokenProvider {
-    let value: String?
-
-    func currentAccessToken() async -> String? { value }
-}
-
-private struct FixedSigner5: RequestSigner {
-    let value: String
-
-    func sign(apiKey: String, nonce: String, timestamp: String, uri: String) throws -> String { value }
-}
-
-private extension NetworkingConfig {
-    static var fixture5: Self {
-        .init(
-            baseURL: URL(string: "https://example.com")!,
-            apiKey: "apikey-123",
-            userAgent: "iOS/4.4.4 (iOS)",
-            acceptLanguage: "EN",
-            omniChannel: "iOS",
-            platform: "iOS",
-            appVersion: "4.4.4"
-        )
-    }
-}
 
 private let sampleAckResponse = """
 {

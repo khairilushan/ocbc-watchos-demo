@@ -73,6 +73,14 @@ let package = Package(
             ]
         ),
         .target(
+            name: "PinCore",
+            dependencies: [
+                "AppCore",
+                "Networking",
+                .product(name: "Dependencies", package: "swift-dependencies")
+            ]
+        ),
+        .target(
             name: "HomeFeature",
             dependencies: [
                 "AppCore",
@@ -116,7 +124,9 @@ let package = Package(
         .target(
             name: "PinFeature",
             dependencies: [
-                "DesignSystem"
+                "DesignSystem",
+                "PinCore",
+                .product(name: "Dependencies", package: "swift-dependencies")
             ]
         ),
         .target(
@@ -132,10 +142,16 @@ let package = Package(
             dependencies: [
                 "AppCore",
                 "WithdrawalCore",
+                "PinCore",
                 "DesignSystem",
                 "PinFeature",
                 .product(name: "Dependencies", package: "swift-dependencies")
             ]
+        ),
+        .target(
+            name: "TestSupport",
+            dependencies: ["Networking"],
+            path: "Tests/TestSupport"
         ),
         .testTarget(
             name: "OCBCKitTests",
@@ -173,13 +189,14 @@ let package = Package(
         ),
         .testTarget(
             name: "WithdrawalCoreTests",
-            dependencies: ["WithdrawalCore", "Networking"]
+            dependencies: ["WithdrawalCore", "Networking", "TestSupport"]
         ),
         .testTarget(
             name: "WithdrawalFeatureTests",
             dependencies: [
                 "WithdrawalFeature",
                 "WithdrawalCore",
+                "PinCore",
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "CasePaths", package: "swift-case-paths")
             ]

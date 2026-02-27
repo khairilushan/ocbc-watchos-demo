@@ -25,14 +25,16 @@ public struct QRISRequestMoneyScreen: View {
             await store.task()
         }
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button("Amount") {
-                    isCustomAmountSheetPresented = true
+            #if os(watchOS)
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Amount") {
+                        isCustomAmountSheetPresented = true
+                    }
                 }
-            }
+            #endif
         }
         .sheet(isPresented: $isCustomAmountSheetPresented) {
-            QrisCustomAmountSheetView { amount in
+            OCBCAmountKeypadView(confirmTitle: "Generate QR") { amount in
                 isCustomAmountSheetPresented = false
                 Task { await store.generateQRCode(with: amount) }
             }

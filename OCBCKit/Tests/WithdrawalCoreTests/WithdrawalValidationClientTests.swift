@@ -1,11 +1,12 @@
 import Foundation
 import Testing
+import TestSupport
 @testable import Networking
 @testable import WithdrawalCore
 
 @Test
 func validate_postsBodyAndMapsResponse() async throws {
-    let recorder = RequestRecorder3()
+    let recorder = RequestRecorder()
     let data = sampleResponse.data(using: .utf8)!
     let response = HTTPURLResponse(
         url: URL(string: "https://example.com/card/withdrawal/validation")!,
@@ -13,20 +14,20 @@ func validate_postsBodyAndMapsResponse() async throws {
         httpVersion: nil,
         headerFields: nil
     )!
-    let httpClient = SpyHTTPClient3(recorder: recorder, result: (data, response))
+    let httpClient = SpyHTTPClient(recorder: recorder, result: (data, response))
 
     let apiClient = APIClient(
-        config: .fixture3,
+        config: .testFixture,
         httpClient: httpClient,
-        nonceGenerator: FixedNonceGenerator3(value: "nonce-123"),
-        timestampProvider: FixedTimestampProvider3(value: "Fri Feb 27 14:54:01 GMT+01:00 2026"),
-        sessionProvider: FixedSessionProvider3(value: "SESSION123"),
-        accessTokenProvider: FixedAccessTokenProvider3(value: "TOKEN123"),
+        nonceGenerator: FixedNonceGenerator(value: "nonce-123"),
+        timestampProvider: FixedTimestampProvider(value: "Fri Feb 27 14:54:01 GMT+01:00 2026"),
+        sessionProvider: FixedSessionProvider(value: "SESSION123"),
+        accessTokenProvider: FixedAccessTokenProvider(value: "TOKEN123"),
         headerProviders: [
             StaticHeadersProvider(),
             SessionHeadersProvider(),
             AuthorizationHeadersProvider(),
-            SignatureHeadersProvider(signer: FixedSigner3(value: "SIGNED"))
+            SignatureHeadersProvider(signer: FixedSigner(value: "SIGNED"))
         ]
     )
 
@@ -77,74 +78,6 @@ func validate_postsBodyAndMapsResponse() async throws {
     #expect(result.amountValue == "IDR 100,000")
     #expect(result.sourceOfFundAccountNo == "693800000723")
     #expect(result.onlineSessionId == "693810053779--1000000-30ad6495-318e-4969-9850-e560b1ad3af0")
-}
-
-private actor RequestRecorder3 {
-    private var request: URLRequest?
-
-    func set(request: URLRequest) {
-        self.request = request
-    }
-
-    func latestRequest() -> URLRequest? {
-        request
-    }
-}
-
-private struct SpyHTTPClient3: HTTPClient {
-    let recorder: RequestRecorder3
-    let result: (Data, URLResponse)
-
-    func send(_ request: URLRequest) async throws -> (Data, URLResponse) {
-        await recorder.set(request: request)
-        return result
-    }
-}
-
-private struct FixedNonceGenerator3: NonceGenerator {
-    let value: String
-
-    func makeNonce() -> String { value }
-}
-
-private struct FixedTimestampProvider3: TimestampProvider {
-    let value: String
-
-    func now() -> Date { .distantPast }
-
-    func string(from date: Date) -> String { value }
-}
-
-private struct FixedSessionProvider3: SessionProvider {
-    let value: String?
-
-    func currentSessionID() async -> String? { value }
-}
-
-private struct FixedAccessTokenProvider3: AccessTokenProvider {
-    let value: String?
-
-    func currentAccessToken() async -> String? { value }
-}
-
-private struct FixedSigner3: RequestSigner {
-    let value: String
-
-    func sign(apiKey: String, nonce: String, timestamp: String, uri: String) throws -> String { value }
-}
-
-private extension NetworkingConfig {
-    static var fixture3: Self {
-        .init(
-            baseURL: URL(string: "https://example.com")!,
-            apiKey: "apikey-123",
-            userAgent: "iOS/4.4.4 (iOS)",
-            acceptLanguage: "EN",
-            omniChannel: "iOS",
-            platform: "iOS",
-            appVersion: "4.4.4"
-        )
-    }
 }
 
 private let sampleResponse = """

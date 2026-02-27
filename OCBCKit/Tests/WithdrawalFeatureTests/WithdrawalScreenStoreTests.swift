@@ -1,6 +1,7 @@
 import AppCore
 import CasePaths
 import Dependencies
+import PinCore
 import Testing
 import WithdrawalCore
 @testable import WithdrawalFeature
@@ -87,7 +88,6 @@ func task_whenRemoteSucceeds_setsInputStepAndDefaultAmount() async throws {
         return
     }
 
-    #expect(store.flowStep == .input)
     #expect(model.amountOptions.count == 2)
     #expect(model.selectedAmount.code == "100000")
     #expect(model.sourceOfFund.productName == "Tanda360Plus-Digital")
@@ -95,7 +95,7 @@ func task_whenRemoteSucceeds_setsInputStepAndDefaultAmount() async throws {
 
 @MainActor
 @Test
-func confirmAndPinValidation_movesToResultStep() async throws {
+func confirm_returnsPinDestinationForVerificationFlow() async throws {
     let store = withDependencies {
         $0.withdrawalClient = .init(
             fetchAmountConfiguration: { _ in
@@ -168,18 +168,13 @@ func confirmAndPinValidation_movesToResultStep() async throws {
     }
 
     await store.task()
-    await store.confirmButtonTapped()
-
-    #expect(store.flowStep == .pin)
-
-    store.pin = "123456"
-    await store.pinConfirmButtonTapped()
-
-    guard case let .result(result) = store.flowStep else {
-        Issue.record("Expected result flow step")
+    let destination = await store.confirmButtonTapped()
+    guard case let .pin(appliNumber, sequenceNumber, next) = destination else {
+        Issue.record("Expected pin destination")
         return
     }
 
-    #expect(result.transactionId == "tx-id")
-    #expect(result.transactionOtp == "827382")
+    #expect(appliNumber == "session-id")
+    #expect(sequenceNumber == "0")
+    #expect(next == .withdrawalVerification)
 }

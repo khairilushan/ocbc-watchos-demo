@@ -12,6 +12,15 @@ public final class Router: @unchecked Sendable {
         path.append(destination)
     }
 
+    public func replaceTop(with destination: Destination) {
+        guard !path.isEmpty else {
+            path = [destination]
+            return
+        }
+        path.removeLast()
+        path.append(destination)
+    }
+
     public func popToRoot() {
         path.removeAll()
     }

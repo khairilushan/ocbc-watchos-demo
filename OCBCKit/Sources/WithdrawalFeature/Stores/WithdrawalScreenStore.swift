@@ -12,13 +12,10 @@ final class WithdrawalScreenStore {
     private var withdrawalClient
 
     var state: ScreenState<WithdrawalInputModel> = .loading
-    var flowStep: WithdrawalFlowStep = .input
     var isAmountSheetPresented = false
-    var pin = ""
     var isSubmitting = false
 
     private var selectedSourceOfFund: WithdrawalSourceOfFundAccount?
-    private var validationResult: WithdrawalValidationResult?
 
     func task() async {
         do {
@@ -40,7 +37,6 @@ final class WithdrawalScreenStore {
             }
 
             selectedSourceOfFund = sourceOfFund
-            flowStep = .input
             state = .success(
                 WithdrawalInputModel(
                     sourceOfFund: mapToSourceOfFundUiModel(sourceOfFund),
@@ -56,9 +52,7 @@ final class WithdrawalScreenStore {
 
     func retryButtonTapped() async {
         state = .loading
-        flowStep = .input
-        pin = ""
-        validationResult = nil
+        WithdrawalFlowContextStore.shared.clear()
         await task()
     }
 
@@ -73,53 +67,29 @@ final class WithdrawalScreenStore {
         isAmountSheetPresented = false
     }
 
-    func confirmButtonTapped() async {
-        guard !isSubmitting else { return }
-        guard let model = state[case: \.success], let sourceOfFund = selectedSourceOfFund else { return }
+    func confirmButtonTapped() async -> Destination? {
+        guard !isSubmitting else { return nil }
+        guard let model = state[case: \.success], let sourceOfFund = selectedSourceOfFund else { return nil }
 
         isSubmitting = true
         defer { isSubmitting = false }
 
         do {
             let request = makeValidationRequest(sourceOfFund: sourceOfFund, amount: model.selectedAmount)
-            validationResult = try await withdrawalClient.validate(request)
-            pin = ""
-            flowStep = .pin
+            let validationResult = try await withdrawalClient.validate(request)
+            WithdrawalFlowContextStore.shared.selectedSourceOfFund = sourceOfFund
+            WithdrawalFlowContextStore.shared.validationResult = validationResult
+            return .pin(
+                appliNumber: validationResult.onlineSessionId,
+                sequenceNumber: "0",
+                next: .withdrawalVerification
+            )
         } catch is CancellationError {
+            return nil
         } catch {
             state = .failure("Failed to validate withdrawal request.")
+            return nil
         }
-    }
-
-    func pinConfirmButtonTapped() async {
-        guard !isSubmitting else { return }
-        guard let sourceOfFund = selectedSourceOfFund, let validationResult else { return }
-        guard pin.count == 6 else { return }
-
-        isSubmitting = true
-        defer { isSubmitting = false }
-
-        do {
-            let pinResult = try await withdrawalClient.verifyPinOTP(
-                .init(appliNumber: validationResult.onlineSessionId, otpCode: pin, sequenceNumber: "0")
-            )
-            let ackResult = try await withdrawalClient.acknowledge(
-                makeAckRequest(
-                    sourceOfFund: sourceOfFund,
-                    validationResult: validationResult,
-                    responseCodeOTP: pinResult.responseCode
-                )
-            )
-            flowStep = .result(mapToResultUiModel(ackResult))
-        } catch is CancellationError {
-        } catch {
-            state = .failure("Failed to verify PIN.")
-        }
-    }
-
-    func backToInputButtonTapped() {
-        flowStep = .input
-        pin = ""
     }
 
     private func mapToSourceOfFundUiModel(_ source: WithdrawalSourceOfFundAccount) -> WithdrawalSourceOfFundUiModel {
@@ -128,17 +98,6 @@ final class WithdrawalScreenStore {
             accountNo: mask(accountNo: source.accountNo),
             accountCurrency: source.accountCcy,
             balanceText: formatCurrency(balance: source.balance)
-        )
-    }
-
-    private func mapToResultUiModel(_ data: WithdrawalAckResult) -> WithdrawalResultModel {
-        WithdrawalResultModel(
-            amountText: data.amountValue,
-            transactionId: data.transactionId,
-            transactionOtp: data.transactionOTP,
-            tokenCard: data.tokenCard,
-            title: data.messageTitle.isEmpty ? "Withdrawal Submitted" : data.messageTitle,
-            subtitle: data.messageSubtitle.isEmpty ? data.responseDescription : data.messageSubtitle
         )
     }
 
@@ -172,40 +131,6 @@ final class WithdrawalScreenStore {
                 ]
             ),
             withdrawalType: WithdrawalType.otp.rawValue
-        )
-    }
-
-    private func makeAckRequest(
-        sourceOfFund: WithdrawalSourceOfFundAccount,
-        validationResult: WithdrawalValidationResult,
-        responseCodeOTP: String
-    ) -> WithdrawalAckRequest {
-        .init(
-            amount: .init(code: validationResult.amountCode, value: validationResult.amountValue),
-            benePhoneNumber: validationResult.benePhoneNumber,
-            onlineSessionID: validationResult.onlineSessionId,
-            pin: validationResult.pin,
-            remitterPhoneNumber: validationResult.remitterPhoneNumber,
-            responseCodeOTP: responseCodeOTP,
-            sourceOfFund: .init(
-                accountBalances: [
-                    .init(
-                        accountCcy: sourceOfFund.accountCcy,
-                        balance: sourceOfFund.balance,
-                        isAvailable: sourceOfFund.isAvailable
-                    )
-                ],
-                accountID: "",
-                accountNo: sourceOfFund.accountNo,
-                accountType: sourceOfFund.accountType,
-                branchCode: "99693",
-                cif: "",
-                labelDebitAccount: sourceOfFund.productName,
-                mcBit: "Y",
-                productCode: sourceOfFund.productCode,
-                productName: sourceOfFund.productName
-            ),
-            withdrawalType: validationResult.withdrawalType
         )
     }
 

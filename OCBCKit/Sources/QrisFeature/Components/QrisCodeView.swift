@@ -10,7 +10,9 @@ struct QrisCodeView: View {
             .resizable()
             .interpolation(.none)
             .aspectRatio(1, contentMode: .fit)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .frame(maxWidth: .infinity)
+            .scaleEffect(1.08)
+            .clipped()
             .accessibilityLabel("QRIS code")
     }
 

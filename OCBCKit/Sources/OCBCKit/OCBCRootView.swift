@@ -3,6 +3,7 @@ import BalanceFeature
 import FundTransferFeature
 import HomeFeature
 import PaymentFeature
+import PinFeature
 import QrisFeature
 import SwiftUI
 import WithdrawalFeature
@@ -29,6 +30,14 @@ public struct OCBCRootView: View {
                         PaymentView()
                     case .withdrawal:
                         WithdrawalScreen()
+                    case let .pin(appliNumber, sequenceNumber, next):
+                        PinInputScreen(
+                            appliNumber: appliNumber,
+                            sequenceNumber: sequenceNumber,
+                            nextDestination: next
+                        )
+                    case .withdrawalVerification:
+                        WithdrawalVerificationScreen()
                     }
                 }
         }

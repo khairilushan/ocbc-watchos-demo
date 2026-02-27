@@ -1,12 +1,11 @@
+import AppCore
+import PinCore
 import SwiftUI
 
 public struct PinInputScreen: View {
-    @Binding private var pin: String
-    private let isSubmitting: Bool
-    private let maxDigits: Int
-    private let backButtonTapped: () -> Void
-    private let pinCompleted: () -> Void
-    @State private var lastSubmittedPin = ""
+    @State private var store: PinInputScreenStore
+    private let nextDestination: Destination
+    @Environment(\.router) private var router
 
     private let keypadKeys: [PinKeyboardKey] = [
         .digit("1"), .digit("2"), .digit("3"),
@@ -16,59 +15,59 @@ public struct PinInputScreen: View {
     ]
 
     public init(
-        pin: Binding<String>,
-        isSubmitting: Bool,
+        appliNumber: String,
+        sequenceNumber: String = "0",
         maxDigits: Int = 6,
-        backButtonTapped: @escaping () -> Void,
-        pinCompleted: @escaping () -> Void
+        nextDestination: Destination
     ) {
-        _pin = pin
-        self.isSubmitting = isSubmitting
-        self.maxDigits = maxDigits
-        self.backButtonTapped = backButtonTapped
-        self.pinCompleted = pinCompleted
+        self.nextDestination = nextDestination
+        _store = State(
+            initialValue: PinInputScreenStore(
+                appliNumber: appliNumber,
+                sequenceNumber: sequenceNumber,
+                maxDigits: maxDigits
+            )
+        )
     }
 
     public var body: some View {
         VStack(spacing: 12) {
-            PinDigitIndicatorsView(enteredDigits: pin.count, maxDigits: maxDigits)
+            PinDigitIndicatorsView(enteredDigits: store.pin.count, maxDigits: store.maxDigits)
 
             PinKeyboardGridView(
                 keys: keypadKeys,
-                digitTapped: appendDigit,
-                deleteTapped: removeLastDigit
+                digitTapped: store.appendDigit,
+                deleteTapped: store.removeLastDigit
             )
-
-            Button("Back") {
-                backButtonTapped()
+            .disabled(store.isSubmitting)
+            .opacity(store.isSubmitting ? 0.45 : 1)
+            .overlay {
+                if store.isSubmitting {
+                    ProgressView("Verifying...")
+                        .controlSize(.small)
+                        .font(.system(size: 12, weight: .semibold))
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 6)
+                        .background(.thinMaterial, in: Capsule())
+                }
             }
-            .buttonStyle(.bordered)
-            .disabled(isSubmitting)
+            .overlay(alignment: .bottom) {
+                if let errorMessage = store.errorMessage, !store.isSubmitting {
+                    Text(errorMessage)
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(.red)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 6)
+                        .background(.thinMaterial, in: Capsule())
+                        .padding(.bottom, 4)
+                }
+            }
         }
         .padding(.horizontal, 12)
-        .onChange(of: pin) { _, newValue in
-            if newValue.count < maxDigits {
-                lastSubmittedPin = ""
-            }
-            submitIfNeeded(for: newValue)
+        .onChange(of: store.isVerified) { _, isVerified in
+            guard isVerified else { return }
+            router?.replaceTop(with: nextDestination)
         }
-    }
-
-    private func appendDigit(_ digit: String) {
-        guard pin.count < maxDigits else { return }
-        pin.append(digit)
-    }
-
-    private func removeLastDigit() {
-        guard !pin.isEmpty else { return }
-        pin.removeLast()
-    }
-
-    private func submitIfNeeded(for pinValue: String) {
-        guard pinValue.count == maxDigits else { return }
-        guard pinValue != lastSubmittedPin else { return }
-        guard !isSubmitting else { return }
-        lastSubmittedPin = pinValue
-        pinCompleted()
     }
 }

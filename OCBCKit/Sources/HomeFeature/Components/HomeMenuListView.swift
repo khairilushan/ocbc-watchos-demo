@@ -6,17 +6,19 @@ struct HomeMenuListView: View {
     let onSelect: (Destination) -> Void
 
     var body: some View {
-        VStack(spacing: 10) {
-            ForEach(items) { item in
-                Button {
-                    onSelect(item.destination)
-                } label: {
-                    HomeMenuRowContent(item: item)
+        ScrollView {
+            VStack(spacing: 10) {
+                ForEach(items) { item in
+                    Button {
+                        onSelect(item.destination)
+                    } label: {
+                        HomeMenuRowContent(item: item)
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel(item.accessibilityLabel)
                 }
-                .buttonStyle(.plain)
-                .accessibilityLabel(item.accessibilityLabel)
             }
+            .padding(.horizontal, 12)
         }
-        .padding(.horizontal, 12)
     }
 }

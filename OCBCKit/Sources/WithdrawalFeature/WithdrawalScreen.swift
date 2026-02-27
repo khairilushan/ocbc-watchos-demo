@@ -1,6 +1,5 @@
 import AppCore
 import DesignSystem
-import PinFeature
 import SwiftUI
 
 public struct WithdrawalScreen: View {
@@ -37,27 +36,18 @@ public struct WithdrawalScreen: View {
 
     @ViewBuilder
     private func content(_ model: WithdrawalInputModel) -> some View {
-        switch store.flowStep {
-        case .input:
-            WithdrawalSelectionView(
-                model: model,
-                isSubmitting: store.isSubmitting,
-                amountButtonTapped: { store.amountButtonTapped() },
-                confirmButtonTapped: { Task { await store.confirmButtonTapped() } }
-            )
-        case .pin:
-            PinInputScreen(
-                pin: $store.pin,
-                isSubmitting: store.isSubmitting,
-                backButtonTapped: { store.backToInputButtonTapped() },
-                pinCompleted: { Task { await store.pinConfirmButtonTapped() } }
-            )
-        case let .result(resultModel):
-            WithdrawalResultView(model: resultModel) {
-                store.backToInputButtonTapped()
-                router?.popToRoot()
+        WithdrawalSelectionView(
+            model: model,
+            isSubmitting: store.isSubmitting,
+            amountButtonTapped: { store.amountButtonTapped() },
+            confirmButtonTapped: {
+                Task {
+                    if let destination = await store.confirmButtonTapped() {
+                        router?.route(to: destination)
+                    }
+                }
             }
-        }
+        )
     }
 }
 

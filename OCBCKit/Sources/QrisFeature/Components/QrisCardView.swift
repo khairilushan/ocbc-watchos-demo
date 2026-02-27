@@ -2,17 +2,22 @@ import SwiftUI
 
 struct QrisCardView: View {
     let model: QrisPaymentModel
+    let cardWidth: CGFloat
 
     var body: some View {
         if let payload = model.payload {
-            VStack(spacing: 4) {
+            let contentPadding: CGFloat = 2
+            let qrSize = cardWidth - (contentPadding * 2)
+
+            VStack(spacing: 2) {
                 QrisLogoView()
                 QrisCodeView(payload: payload)
-                    .border(.red)
+                    .frame(width: qrSize, height: qrSize)
             }
-            .padding(.top, 8)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .padding(contentPadding)
+            .frame(width: cardWidth)
             .background(.white, in: .rect(cornerRadius: 16))
+            .clipShape(.rect(cornerRadius: 16))
         }
     }
 }
