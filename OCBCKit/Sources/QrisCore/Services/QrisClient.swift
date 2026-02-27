@@ -4,18 +4,36 @@ import Networking
 
 public struct QrisClient: Sendable {
     public var fetchPrimaryAccount: @Sendable () async throws -> QrisPrimaryAccount
+    public var generateQris: @Sendable (GenerateQrisRequest) async throws -> GeneratedQris
 
-    public init(fetchPrimaryAccount: @escaping @Sendable () async throws -> QrisPrimaryAccount) {
+    public init(
+        fetchPrimaryAccount: @escaping @Sendable () async throws -> QrisPrimaryAccount,
+        generateQris: @escaping @Sendable (GenerateQrisRequest) async throws -> GeneratedQris
+    ) {
         self.fetchPrimaryAccount = fetchPrimaryAccount
+        self.generateQris = generateQris
     }
 }
 
 public extension QrisClient {
     static func live(apiClient: APIClient) -> Self {
-        Self {
-            let response = try await apiClient.execute(GetQrisPrimaryAccountEndpoint())
-            return QrisPrimaryAccount(qrCodePayload: response.data.account.qrCode)
-        }
+        Self(
+            fetchPrimaryAccount: {
+                let response = try await apiClient.execute(GetQrisPrimaryAccountEndpoint())
+                return QrisPrimaryAccount(
+                    qrCodePayload: response.data.account.qrCode,
+                    dynamicAccountID: response.data.account.dynamicAccountId
+                )
+            },
+            generateQris: { request in
+                let response = try await apiClient.execute(PostGenerateQrisEndpoint(request: request))
+                return GeneratedQris(
+                    encodedQRCode: response.data.encodedQRCode,
+                    minimumAmount: response.data.minimumAmount,
+                    maximumAmount: response.data.maximumAmount
+                )
+            }
+        )
     }
 
     static func demo() -> Self {
@@ -29,15 +47,18 @@ private enum QrisClientKey: DependencyKey {
     }
 
     static var previewValue: QrisClient {
-        .init {
-            .init(qrCodePayload: "")
-        }
+        .init(
+            fetchPrimaryAccount: {
+                .init(qrCodePayload: "", dynamicAccountID: "")
+            },
+            generateQris: { _ in
+                .init(encodedQRCode: "", minimumAmount: 0, maximumAmount: 0)
+            }
+        )
     }
 
     static var testValue: QrisClient {
-        .init {
-            .init(qrCodePayload: "")
-        }
+        previewValue
     }
 }
 

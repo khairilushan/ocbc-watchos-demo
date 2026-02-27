@@ -144,6 +144,7 @@ let package = Package(
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "CasePaths", package: "swift-case-paths")
             ]
+        ),
         .testTarget(
             name: "FundTransferCoreTests",
             dependencies: ["FundTransferCore", "Networking"]

@@ -37,6 +37,54 @@ func fetchPrimaryAccount_decodesAndMapsResponse() async throws {
     #expect(request.url?.absoluteString == "https://example.com/qris/account/primary")
     #expect(request.value(forHTTPHeaderField: "URI") == "/qris/account/primary")
     #expect(account.qrCodePayload == "base64-qr-value")
+    #expect(account.dynamicAccountID == "d6658cdc-0a92-4aaa-9474-04e833eb438a")
+}
+
+@Test
+func generateQris_postsBodyAndMapsResponse() async throws {
+    let recorder = RequestRecorder()
+    let data = sampleGenerateResponse.data(using: .utf8)!
+    let response = HTTPURLResponse(
+        url: URL(string: "https://example.com/qris/generate-qris")!,
+        statusCode: 200,
+        httpVersion: nil,
+        headerFields: nil
+    )!
+    let httpClient = SpyHTTPClient(recorder: recorder, result: (data, response))
+
+    let client = APIClient(
+        config: .fixture,
+        httpClient: httpClient,
+        nonceGenerator: FixedNonceGenerator(value: "nonce-123"),
+        timestampProvider: FixedTimestampProvider(value: "Fri Feb 27 15:15:06 GMT+01:00 2026"),
+        sessionProvider: FixedSessionProvider(value: "SESSION123"),
+        accessTokenProvider: FixedAccessTokenProvider(value: "TOKEN123"),
+        headerProviders: [
+            StaticHeadersProvider(),
+            SessionHeadersProvider(),
+            AuthorizationHeadersProvider(),
+            SignatureHeadersProvider(signer: FixedSigner(value: "SIGNED"))
+        ]
+    )
+
+    let qrisClient = QrisClient.live(apiClient: client)
+    let generated = try await qrisClient.generateQris(
+        .init(amount: 58000, dynamicAccountID: "d6658cdc-0a92-4aaa-9474-04e833eb438a", remark: "")
+    )
+    let request = try #require(await recorder.latestRequest())
+
+    #expect(request.httpMethod == "POST")
+    #expect(request.url?.absoluteString == "https://example.com/qris/generate-qris")
+    #expect(request.value(forHTTPHeaderField: "URI") == "/qris/generate-qris")
+    #expect(request.value(forHTTPHeaderField: "Content-Type") == "application/json")
+
+    let body = String(data: request.httpBody ?? Data(), encoding: .utf8) ?? ""
+    #expect(body.contains("\"amount\":58000"))
+    #expect(body.contains("\"dynamicAccountId\":\"d6658cdc-0a92-4aaa-9474-04e833eb438a\""))
+
+    #expect(generated.encodedQRCode == "base64-generated-qr")
+    #expect(generated.minimumAmount == 10000)
+    #expect(generated.maximumAmount == 2500000)
 }
 
 private actor RequestRecorder {
@@ -148,5 +196,18 @@ private let sampleResponse = """
     }
   },
   "response_code": "00000"
+}
+"""
+
+private let sampleGenerateResponse = """
+{
+  "response_code": "00000",
+  "response_desc_en": "SUCCESS",
+  "response_desc_id": "SUKSES",
+  "data": {
+    "encodedQrcode": "base64-generated-qr",
+    "minimumAmount": 10000,
+    "maximumAmount": 2500000
+  }
 }
 """

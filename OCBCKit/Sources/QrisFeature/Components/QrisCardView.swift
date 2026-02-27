@@ -4,13 +4,15 @@ struct QrisCardView: View {
     let model: QrisPaymentModel
 
     var body: some View {
-        VStack(spacing: 10) {
-            QrisLogoView()
-            QrisCodeView(payload: model.payload)
+        if let payload = model.payload {
+            VStack(spacing: 4) {
+                QrisLogoView()
+                QrisCodeView(payload: payload)
+                    .border(.red)
+            }
+            .padding(.top, 8)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(.white, in: .rect(cornerRadius: 16))
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 10)
-        .frame(width: 176, height: 206)
-        .background(.white, in: .rect(cornerRadius: 16))
     }
 }

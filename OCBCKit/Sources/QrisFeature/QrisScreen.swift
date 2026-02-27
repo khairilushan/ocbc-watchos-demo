@@ -1,8 +1,9 @@
 import DesignSystem
 import SwiftUI
 
-public struct QrisScreen: View {
-    @State private var store = QrisScreenStore()
+public struct QRISRequestMoneyScreen: View {
+    @State private var store = QRISRequestMoneyScreenStore()
+    @State private var isCustomAmountSheetPresented = false
 
     public init() {}
 
@@ -12,7 +13,7 @@ public struct QrisScreen: View {
             case .loading:
                 OCBCLoadingView()
             case let .success(model):
-                QrisCardView(model: model)
+                QrisRequestMoneyContentView(model: model)
             case let .failure(message):
                 OCBCFailureView(message: message) {
                     Task { await store.retryButtonTapped() }
@@ -23,11 +24,24 @@ public struct QrisScreen: View {
             guard case .loading = store.state else { return }
             await store.task()
         }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("Amount") {
+                    isCustomAmountSheetPresented = true
+                }
+            }
+        }
+        .sheet(isPresented: $isCustomAmountSheetPresented) {
+            QrisCustomAmountSheetView { amount in
+                isCustomAmountSheetPresented = false
+                Task { await store.generateQRCode(with: amount) }
+            }
+        }
     }
 }
 
 #Preview {
     NavigationStack {
-        QrisScreen()
+        QRISRequestMoneyScreen()
     }
 }
