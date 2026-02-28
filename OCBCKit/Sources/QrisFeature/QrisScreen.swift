@@ -30,6 +30,7 @@ public struct QRISRequestMoneyScreen: View {
                     Button("Amount") {
                         isCustomAmountSheetPresented = true
                     }
+                    .tint(Color.red.opacity(0.9))
                 }
             #endif
         }

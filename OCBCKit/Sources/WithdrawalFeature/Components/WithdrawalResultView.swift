@@ -41,6 +41,7 @@ struct WithdrawalResultView: View {
             )
 
             Button("Done", action: doneButtonTapped)
+                .tint(Color.red.opacity(0.9))
                 .buttonStyle(.glassProminent)
         }
         .padding(.horizontal, 12)

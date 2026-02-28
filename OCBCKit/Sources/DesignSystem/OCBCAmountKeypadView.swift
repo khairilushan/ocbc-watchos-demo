@@ -3,6 +3,7 @@ import SwiftUI
 
 public struct OCBCAmountKeypadView: View {
     @State private var amountInput = ""
+    private let horizontalInset: CGFloat = 10
 
     private let confirmTitle: String
     private let onConfirm: (Int?) -> Void
@@ -27,11 +28,23 @@ public struct OCBCAmountKeypadView: View {
 
     public var body: some View {
         VStack {
-            Text(displayAmount)
-                .font(.system(size: 20, weight: .semibold, design: .rounded))
-                .frame(maxWidth: .infinity, alignment: .trailing)
-                .padding(10)
-                .glassEffect()
+            HStack(spacing: 8) {
+                Text(displayAmount)
+                    .font(.system(size: 20, weight: .semibold, design: .rounded))
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+
+                Image(systemName: "delete.left.fill")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundStyle(amountInput.isEmpty ? .secondary : .primary)
+                    .frame(width: 24, height: 24)
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        deleteLast()
+                    }
+            }
+            .padding(.horizontal, horizontalInset)
+            .padding(.vertical, 10)
+            .glassEffect()
 
             ScrollView {
                 VStack(spacing: 8) {
@@ -44,15 +57,19 @@ public struct OCBCAmountKeypadView: View {
                         }
                     }
                 }
-                .padding(10)
+                .padding(.horizontal, horizontalInset)
+                .padding(.vertical, 10)
             }
         }
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button(confirmTitle) {
-                    onConfirm(normalizedAmount)
+            #if os(watchOS)
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(confirmTitle) {
+                        onConfirm(normalizedAmount)
+                    }
+                    .tint(Color.red.opacity(0.9))
                 }
-            }
+            #endif
         }
     }
 
@@ -75,5 +92,10 @@ public struct OCBCAmountKeypadView: View {
         if next.count <= 12 {
             amountInput = next
         }
+    }
+
+    private func deleteLast() {
+        guard !amountInput.isEmpty else { return }
+        amountInput.removeLast()
     }
 }

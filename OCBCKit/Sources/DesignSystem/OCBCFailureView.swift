@@ -21,6 +21,7 @@ public struct OCBCFailureView: View {
                 .foregroundStyle(.white)
 
             Button("Retry", action: onRetry)
+                .tint(Color.red.opacity(0.9))
                 .buttonStyle(.glassProminent)
         }
         .padding(16)

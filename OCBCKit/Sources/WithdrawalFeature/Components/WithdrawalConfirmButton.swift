@@ -21,6 +21,7 @@ struct WithdrawalConfirmButton: View {
             .frame(maxWidth: .infinity)
             .frame(height: 40)
         }
+        .tint(Color.red.opacity(0.9))
         .buttonStyle(.glassProminent)
         .disabled(isDisabled || isLoading)
     }

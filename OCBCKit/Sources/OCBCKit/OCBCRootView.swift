@@ -25,7 +25,9 @@ public struct OCBCRootView: View {
                     case .qris:
                         QRISRequestMoneyScreen()
                     case .fundTransfer:
-                        FundTransferView()
+                        FundTransferRecipientScreen()
+                    case let .fundTransferAmountInput(recipient):
+                        FundTransferAmountInputScreen(recipient: recipient)
                     case .payment:
                         PaymentView()
                     case .withdrawal:

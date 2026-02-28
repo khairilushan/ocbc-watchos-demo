@@ -8,13 +8,27 @@ Implemented so far:
 - `Home` screen
 - `Balance` screen
 - `QRIS` screen
-- `Fund Transfer` screen
+- `QRIS` flow:
+  - fetch primary account
+  - generate QR payload
+  - custom amount via keypad sheet (`Generate QR`)
+- `Fund Transfer` flow:
+  - recipient list with pagination
+  - amount input screen (recipient + source funds, amount/message/transaction time)
+  - validation request (`POST /fundtransfer/v5/validate`) on Continue
+  - route to `PinFeature` on successful validation
 - `Payment & Purchase` screen
 - Reusable `PinFeature` with custom digit keypad (0-9 + delete)
-- `Withdrawal` flow (source of funds, amount selection sheet, PIN validation, result)
+- `Withdrawal` flow:
+  - load source of funds + amount configuration
+  - validate request
+  - route to `PinFeature`
+  - acknowledge/verification step and result screen
 - Root navigation and routing
-- Shared `ScreenStore` per feature with `loading/success/failure` state
+- Shared `ScreenStore` pattern per feature with `loading/success/failure` state
 - `DesignSystem` target for shared UI and assets
+- Shared amount keypad with compact delete control and aligned layout
+- Primary action buttons standardized to red tint (`Color.red.opacity(0.9)`)
 
 The watch app entry point renders `OCBCRootView` directly.
 
@@ -66,8 +80,24 @@ OCBC/
         │   └── Resources/
         │       └── Assets.xcassets
         ├── FundTransferFeature/
+        │   ├── FundTransferRecipientScreen.swift
+        │   ├── FundTransferAmountInputScreen.swift
+        │   ├── Components/
+        │   ├── Models/
+        │   └── Stores/
+        ├── PinFeature/
+        │   ├── PinInputScreen.swift
+        │   ├── Components/
+        │   ├── Models/
+        │   └── Stores/
+        ├── WithdrawalFeature/
+        │   ├── WithdrawalScreen.swift
+        │   ├── WithdrawalVerificationScreen.swift
+        │   ├── Components/
+        │   ├── Models/
         │   └── Stores/
         └── PaymentFeature/
+            ├── PaymentView.swift
             └── Stores/
 ```
 
@@ -105,13 +135,16 @@ Internally, it composes multiple targets:
 - `DesignSystem`
 - `Networking`
 - `BalanceCore`
+- `QrisCore`
+- `FundTransferCore`
+- `PinCore`
+- `WithdrawalCore`
 - `HomeFeature`
 - `BalanceFeature`
 - `QrisFeature`
 - `FundTransferFeature`
 - `PaymentFeature`
 - `PinFeature`
-- `WithdrawalCore`
 - `WithdrawalFeature`
 - `OCBCKit` (root composition target)
 
@@ -198,6 +231,16 @@ Goal: keep each SwiftUI `body` focused and minimal.
   - Endpoint + decoding + feature client: `BalanceCore` (`BalanceClient`)
   - UI mapping/state: `BalanceFeature` (`BalanceScreenStore`)
 
+Additional implemented examples:
+- `QrisCore`
+  - `GET /qris/account/primary`
+  - `POST /qris/v2/generate`
+- `WithdrawalCore`
+  - source of funds, amount config, validation, PIN verify, acknowledgement
+- `FundTransferCore`
+  - `POST /recipient/v5/transfer`
+  - `POST /fundtransfer/v5/validate`
+
 ### Reusable Preview/Test Networking Setup
 
 `AppCore` provides reusable preview providers and client factory:
@@ -216,6 +259,11 @@ Current asset names used in code:
 - `icon.qris.logo`
 - `image.sample.qr`
 
+## Notes
+
+- Main CTA buttons use a red-tinted prominent style for consistency.
+- Amount keypad is shared by QRIS and Fund Transfer amount entry.
+
 ## Build & Run
 
 ### Run the watch app in Xcode
@@ -231,8 +279,14 @@ cd OCBCKit
 swift build
 ```
 
+### Build watch app from terminal
+
+```bash
+xcodebuild -project OCBC.xcodeproj -scheme "OCBC Watch App" -destination "platform=watchOS Simulator,name=Apple Watch Series 10 (46mm)" build
+```
+
 ## Roadmap (next)
 
-- Add real repository/service dependencies into each `ScreenStore`
-- Add feature-level tests for store mapping and state transitions
-- Expand design tokens for spacing, typography, and color roles
+- Add Fund Transfer post-PIN step (verification/confirmation screen) and end-to-end submit/acknowledgement flow.
+- Finalize Fund Transfer validation payload fields for scheduled/recurring transfers (`interval`, `recurStartDate`, `recurEndDate`).
+- Expand feature-level tests around Fund Transfer continue/validation and route transitions.
